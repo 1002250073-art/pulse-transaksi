@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PULSE — Spend With Intention. Aplikasi web pengelolaan keuangan pribadi mahasiswa untuk mencatat transaksi dan menahan pembelian impulsif." />
+  <title>PULSE — Spend With Intention | Transaksi</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Berkas CSS Terpisah -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- =================================================================
+         KOMPONEN 1: Sidebar Navigasi Hierarkis (aside#sidebar)
+         ================================================================= -->
+    <aside id="sidebar" class="sidebar" aria-label="Sidebar Navigasi PULSE">
+      <div class="brand">
+        <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12h4l2.2-7 4.2 14L15 9l2 3h5" />
+        </svg>
+        <div class="brand-text">
+          <span>PULSE</span>
+          <small>Spend With Intention</small>
+        </div>
+      </div>
+
+      <nav id="nav-utama" aria-label="Navigasi utama">
+        <p class="nav-label">RUANG PRIBADIMU</p>
+        <button type="button" class="nav-item" data-page="Dashboard">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button type="button" class="nav-item active" data-page="Transaksi" aria-current="page">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="3" />
+            <path d="M7 8h4M7 12h10M7 16h6" />
+          </svg>
+          <span>Transaksi</span>
+        </button>
+
+        <button type="button" class="nav-item" data-page="Wishlist">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 5.8a5.5 5.5 0 0 0-7.8 0L12 6.9l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 22l7.8-7.3 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z" />
+          </svg>
+          <span>Wishlist</span>
+        </button>
+
+        <button type="button" class="nav-item" data-page="Refleksi">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v6l4 2" />
+          </svg>
+          <span>Refleksi</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="intent-note">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 2 1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5Z" />
+            <path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8Z" />
+          </svg>
+          <p>
+            <b>Jeda kecil, keputusan lebih baik.</b><br />
+            Tidak semua keinginan perlu dibeli hari ini.
+          </p>
+        </div>
+
+        <div class="sidebar-profile">
+          <span class="avatar">FA</span>
+          <div>
+            <b>Faza</b>
+            <small>Mahasiswa</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Konten Utama Halaman Transaksi -->
+    <main id="main-content">
+      <!-- Tombol Toggle Menu untuk Layar Mobile -->
+      <button id="btn-mobile-menu" type="button" class="mobile-menu" aria-label="Buka navigasi" aria-expanded="false">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </svg>
+        <span>Menu</span>
+      </button>
+
+      <!-- =================================================================
+           KOMPONEN 2: Header Halaman & Bar Pencarian (header#topbar)
+           ================================================================= -->
+      <header id="topbar" class="topbar">
+        <div class="page-heading">
+          <p class="context">Ruang keuangan &rsaquo; <span>Transaksi</span></p>
+          <h1>Transaksi</h1>
+          <p>Setiap catatan kecil membantu kamu melihat gambaran besar.</p>
+        </div>
+
+        <div class="top-actions">
+          <label class="search" for="input-cari">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+            <input id="input-cari" type="search" placeholder="Cari nama transaksi atau kategori..." aria-label="Cari nama transaksi" />
+          </label>
+
+          <div class="period-badge" aria-label="Periode anggaran aktif">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M16 3v4M8 3v4M3 10h18" />
+            </svg>
+            <span>Oktober 2026</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Layout 2 Kolom Halaman Transaksi -->
+      <div class="transactions-layout">
+        <div class="transactions-main">
+          <!-- =================================================================
+               KOMPONEN 3: Kartu Ringkasan Keuangan (section#ringkasan-keuangan)
+               ================================================================= -->
+          <section id="ringkasan-keuangan" class="summary-grid" aria-label="Ringkasan Keuangan Bulan Ini">
+            <article class="card summary-card">
+              <div class="summary-icon green" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19V5M7 10l5-5 5 5" />
+                </svg>
+              </div>
+              <div>
+                <p class="eyebrow">Total pemasukan</p>
+                <strong id="total-pemasukan">Rp 2.000.000</strong>
+                <small id="sub-pemasukan">2 transaksi pemasukan</small>
+              </div>
+            </article>
+
+            <article class="card summary-card">
+              <div class="summary-icon red" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5v14M17 14l-5 5-5-5" />
+                </svg>
+              </div>
+              <div>
+                <p class="eyebrow">Total pengeluaran</p>
+                <strong id="total-pengeluaran">Rp 750.000</strong>
+                <small id="sub-pengeluaran">8 transaksi pengeluaran</small>
+              </div>
+            </article>
+
+            <article class="card summary-card balance-highlight">
+              <div class="summary-icon teal" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7a3 3 0 0 1 3-3h12v16H6a3 3 0 0 1-3-3Z" />
+                  <path d="M15 10h6v6h-6a3 3 0 0 1 0-6Z" />
+                </svg>
+              </div>
+              <div>
+                <p class="eyebrow">Sisa uang</p>
+                <strong id="sisa-uang">Rp 1.250.000</strong>
+                <small id="sub-sisa">62,5% dari pemasukan masih tersedia</small>
+              </div>
+            </article>
+          </section>
+
+          <!-- =================================================================
+               KOMPONEN 4: Tabel & Filter Riwayat Transaksi (section#daftar-transaksi)
+               ================================================================= -->
+          <section id="daftar-transaksi" class="card table-card" aria-label="Daftar Riwayat Transaksi">
+            <div class="table-tools">
+              <div id="tab-filter-jenis" class="segmented" role="tablist" aria-label="Filter jenis transaksi">
+                <button type="button" role="tab" class="tab-btn selected" data-filter="Semua" aria-selected="true">Semua</button>
+                <button type="button" role="tab" class="tab-btn" data-filter="Pemasukan" aria-selected="false">Pemasukan</button>
+                <button type="button" role="tab" class="tab-btn" data-filter="Pengeluaran" aria-selected="false">Pengeluaran</button>
+              </div>
+
+              <div class="table-filter-right">
+                <select id="filter-kategori" aria-label="Filter berdasarkan kategori">
+                  <option value="Semua">Semua kategori</option>
+                  <option value="Makanan">Makanan</option>
+                  <option value="Transportasi">Transportasi</option>
+                  <option value="Kuliah">Kuliah</option>
+                  <option value="Hiburan">Hiburan</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Pemasukan">Pemasukan</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+                <button id="btn-reset-data" type="button" class="button button-ghost" title="Kembalikan ke data awal">
+                  Reset Data
+                </button>
+              </div>
+            </div>
+
+            <div class="table-head" aria-hidden="true">
+              <span>TANGGAL</span>
+              <span>DESKRIPSI</span>
+              <span>KATEGORI</span>
+              <span class="text-right">JUMLAH</span>
+              <span class="text-center">AKSI</span>
+            </div>
+
+            <!-- Kontainer Baris Transaksi (di-render oleh script.js) -->
+            <div id="list-transaksi" class="transaction-list" role="region" aria-live="polite"></div>
+
+            <div class="table-footer">
+              <small id="info-jumlah-transaksi">Menampilkan 10 transaksi • Oktober 2026</small>
+              <strong id="selisih-bersih" class="net-balance">Selisih bersih +Rp 1.250.000</strong>
+            </div>
+          </section>
+        </div>
+
+        <!-- =================================================================
+             KOMPONEN 5: Form Tambah Transaksi & Pintasan Kategori (aside#panel-form)
+             ================================================================= -->
+        <aside id="panel-form" class="form-column" aria-label="Panel pencatatan transaksi">
+          <section class="card form-card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">CATAT KEUANGAN</p>
+                <h2>Tambah transaksi</h2>
+                <p>Catat yang masuk dan keluar, sekecil apa pun.</p>
+              </div>
+              <span id="status-draf" class="tag tag-dark">Draf</span>
+            </div>
+
+            <form id="form-transaksi" novalidate>
+              <!-- Pemilih Jenis Transaksi (Pemasukan / Pengeluaran) -->
+              <div class="segmented full" role="group" aria-label="Pilih jenis transaksi">
+                <button type="button" id="btn-jenis-pemasukan" class="type-btn" data-type="Pemasukan">
+                  &swarr; Pemasukan
+                </button>
+                <button type="button" id="btn-jenis-pengeluaran" class="type-btn selected" data-type="Pengeluaran">
+                  &nearr; Pengeluaran
+                </button>
+              </div>
+              <input type="hidden" id="input-jenis" name="jenis" value="Pengeluaran" />
+
+              <label for="input-deskripsi">
+                Nama transaksi
+                <input id="input-deskripsi" name="deskripsi" type="text" required placeholder="Contoh: Makan siang kantin" autocomplete="off" />
+              </label>
+
+              <label for="input-nominal">
+                Jumlah (Rp)
+                <div class="input-prefix">
+                  <span>Rp</span>
+                  <input id="input-nominal" name="nominal" type="number" min="100" step="500" required inputmode="numeric" placeholder="50000" />
+                </div>
+              </label>
+
+              <label for="input-kategori">
+                Kategori
+                <select id="input-kategori" name="kategori" required>
+                  <option value="" disabled selected>Pilih kategori</option>
+                  <option value="Makanan">Makanan</option>
+                  <option value="Transportasi">Transportasi</option>
+                  <option value="Kuliah">Kuliah</option>
+                  <option value="Hiburan">Hiburan</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Pemasukan">Pemasukan</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </label>
+
+              <label for="input-tanggal">
+                Tanggal
+                <input id="input-tanggal" name="tanggal" type="date" value="2026-10-30" required />
+              </label>
+
+              <!-- Pesan Umpan Balik Validasi Form -->
+              <p id="pesan-validasi" class="form-feedback" role="alert" aria-live="assertive" hidden></p>
+
+              <button id="btn-simpan" class="button button-primary full" type="submit">
+                + Simpan transaksi
+              </button>
+            </form>
+          </section>
+
+          <!-- Kartu Pintasan Kategori -->
+          <section id="pintasan-kategori" class="card category-card" aria-label="Pintasan Kategori Cepat">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">PINTASAN CEPAT</p>
+                <h2>Pilih kategori</h2>
+                <p>Klik untuk mengisi otomatis kategori pada form.</p>
+              </div>
+            </div>
+
+            <div class="category-grid">
+              <button type="button" class="shortcut-btn" data-category="Makanan">
+                <span class="cat-dot food"></span>
+                <span>Makanan</span>
+              </button>
+              <button type="button" class="shortcut-btn" data-category="Transportasi">
+                <span class="cat-dot transport"></span>
+                <span>Transportasi</span>
+              </button>
+              <button type="button" class="shortcut-btn" data-category="Kuliah">
+                <span class="cat-dot study"></span>
+                <span>Kuliah</span>
+              </button>
+              <button type="button" class="shortcut-btn" data-category="Hiburan">
+                <span class="cat-dot fun"></span>
+                <span>Hiburan</span>
+              </button>
+              <button type="button" class="shortcut-btn" data-category="Shopping">
+                <span class="cat-dot shop"></span>
+                <span>Shopping</span>
+              </button>
+              <button type="button" class="shortcut-btn" data-category="Pemasukan">
+                <span class="cat-dot income"></span>
+                <span>Pemasukan</span>
+              </button>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <!-- Footer Semantik -->
+      <footer id="footer-pulse" class="app-footer">
+        <p><strong>PULSE — Spend With Intention</strong> &bull; Aplikasi Pengelolaan Keuangan Pribadi Mahasiswa</p>
+        <small>Tugas 2 Implementasi Komponen Dasar (HTML, CSS, dan JavaScript Murni)</small>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Toast Notifikasi Interaktif -->
+  <div id="toast-notifikasi" class="toast" role="status" aria-live="polite" hidden>
+    <span id="toast-teks">Transaksi berhasil disimpan.</span>
+  </div>
+
+  <!-- Berkas JavaScript Terpisah -->
+  <script src="script.js" defer></script>
+</body>
+</html>
