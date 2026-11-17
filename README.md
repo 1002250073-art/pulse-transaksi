@@ -41,6 +41,6 @@ Aplikasi ini dibangun menggunakan HTML, CSS, dan JavaScript murni tanpa ketergan
 
 1. Unduh atau *clone* repositori ini:
    ```bash
-   git clone https://github.com/username-kamu/nama-repo.git
+   git clone https://github.com/1002250073-art/pulse-transaksi
    ```
 2. Buka berkas `index.html` secara langsung menggunakan *browser* modern (Chrome, Firefox, Edge, atau Safari), atau jalankan melalui ekstensi **Live Server** di VS Code.
